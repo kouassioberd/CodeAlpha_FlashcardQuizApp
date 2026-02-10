@@ -1,13 +1,18 @@
 package com.example.codealpha_flashcardquizapp.ui.screens
 
+import android.graphics.Color
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.FloatingActionButton
@@ -23,8 +28,11 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.layout.ModifierLocalBeyondBoundsLayout
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.codealpha_flashcardquizapp.viewmodel.FlashcardViewModel
@@ -55,7 +63,10 @@ fun FlashcardScreen(
                     .padding(padding),
                 contentAlignment = Alignment.Center
             ){
-                Text("No flashcard yet")
+                Text(
+                    "No flashcard yet",
+                    fontSize = 20.sp,
+                )
             }
         } else {
             val card = cards[index]
@@ -69,29 +80,44 @@ fun FlashcardScreen(
                 verticalArrangement = Arrangement.Center
             ) {
 
-                Text(
-                    text = card.question,
-                    style = MaterialTheme.typography.headlineMedium
-                )
-
-                Spacer(modifier = Modifier.height(20.dp))
-
-                if (showAnswer) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(250.dp)
+                        .shadow(8.dp, RoundedCornerShape(16.dp))
+                        .background(MaterialTheme.colorScheme.surface, RoundedCornerShape(16.dp))
+                        .padding(24.dp),
+                    contentAlignment = Alignment.Center
+                ){
                     Text(
-                        text = card.answer,
-                        style = MaterialTheme.typography.bodyLarge
+                        text = if (showAnswer) card.answer else card.question,
+                        style = MaterialTheme.typography.headlineSmall.copy(
+                            fontSize = 24.sp,
+                            fontWeight = FontWeight.Bold
+                        ),
+                        color = MaterialTheme.colorScheme.onSurface
                     )
+
+
                 }
 
                 Spacer(modifier = Modifier.height(20.dp))
 
-                Button(onClick = { showAnswer = !showAnswer}) {
-                    Text("Show Answer")
+                Button(
+                    onClick = { showAnswer = !showAnswer},
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = MaterialTheme.colorScheme.primary
+                    )
+
+                ) {
+                    Text( if (showAnswer) "Hide Answer" else "Show Answer")
                 }
 
                 Spacer(modifier = Modifier.height(20.dp))
 
-                Row {
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(16.dp)
+                ) {
                     Button(
                         onClick = {
                             if (index > 0) {
@@ -102,8 +128,6 @@ fun FlashcardScreen(
                     ) {
                         Text("Previous")
                     }
-
-                    Spacer(modifier = Modifier.height(20.dp))
 
                     Button(
                         onClick = {
@@ -120,29 +144,34 @@ fun FlashcardScreen(
 
                 Spacer(modifier = Modifier.height(20.dp))
 
-                Button(
-                    colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary),
-                    onClick = {
-                        // Navigate to edit screen with the card ID as a parameter
-                        navController.navigate("edit/${card.id}")
-                    }
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
-                    Text("Edit")
-                }
-
-
-                Spacer(modifier = Modifier.height(20.dp))
-
-                Button(
-                    colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.error),
-                    onClick = {
-                        viewModel.deleteFlashcard(card)
-                        if (index > 0) {
-                            index--
+                    Button(
+                        colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondary),
+                        onClick = {
+                            // Navigate to edit screen with the card ID as a parameter
+                            navController.navigate("edit/${card.id}")
                         }
+                    ) {
+                        Text("Edit")
                     }
-                ) {
-                    Text("Delete")
+
+
+
+                    Spacer(modifier = Modifier.height(20.dp))
+
+                    Button(
+                        colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.error),
+                        onClick = {
+                            viewModel.deleteFlashcard(card)
+                            if (index > 0) {
+                                index--
+                            }
+                        }
+                    ) {
+                        Text("Delete")
+                    }
                 }
 
 
