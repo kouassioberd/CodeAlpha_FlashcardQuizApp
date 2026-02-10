@@ -69,15 +69,15 @@ A simple **flashcard app** built with **Jetpack Compose**, **Room database**, an
 
 ## 📸 Screenshots
 
-<img width="1080" height="1920" alt="Screenshot_20260210_185216" src="https://github.com/user-attachments/assets/9e79735c-e6cb-456a-8ebe-58fcb1ea87c2" />
-<img width="1080" height="1920" alt="Screenshot_20260210_185654" src="https://github.com/user-attachments/assets/ae900326-4a2f-4dee-b215-5b5505cd2d03" />
-<img width="1080" height="1920" alt="Screenshot_20260210_185713" src="https://github.com/user-attachments/assets/a06f33c9-cdef-4256-a086-dd64a93cd703" />
-<img width="1080" height="1920" alt="Screenshot_20260210_185748" src="https://github.com/user-attachments/assets/38c26cfc-fa67-447e-8a4b-67458ebd630c" />
-<img width="1080" height="1920" alt="Screenshot_20260210_185825" src="https://github.com/user-attachments/assets/2d61aa14-ba56-4a25-abc3-260148919649" />
-<img width="1080" height="1920" alt="Screenshot_20260210_185859" src="https://github.com/user-attachments/assets/898925b8-9f3f-46ff-9bd4-c326e5fa735e" />
-<img width="1080" height="1920" alt="Screenshot_20260210_185917" src="https://github.com/user-attachments/assets/dc885888-46b9-4ca1-b267-3841a89ac275" />
-<img width="1080" height="1920" alt="Screenshot_20260210_190002" src="https://github.com/user-attachments/assets/f85bc8d4-9ef2-47df-ada4-c6747de6b98a" />
-<img width="1080" height="1920" alt="Screenshot_20260210_190012" src="https://github.com/user-attachments/assets/74834f64-d104-4fa0-aaa5-fa9f50afeae8" />
+<img width="200"  alt="Screenshot_20260210_185216" src="https://github.com/user-attachments/assets/9e79735c-e6cb-456a-8ebe-58fcb1ea87c2" />
+<img width="200" alt="Screenshot_20260210_185654" src="https://github.com/user-attachments/assets/ae900326-4a2f-4dee-b215-5b5505cd2d03" />
+<img width="200" alt="Screenshot_20260210_185713" src="https://github.com/user-attachments/assets/a06f33c9-cdef-4256-a086-dd64a93cd703" />
+<img width="200" alt="Screenshot_20260210_185748" src="https://github.com/user-attachments/assets/38c26cfc-fa67-447e-8a4b-67458ebd630c" />
+<img width="200" alt="Screenshot_20260210_185825" src="https://github.com/user-attachments/assets/2d61aa14-ba56-4a25-abc3-260148919649" />
+<img width="200" alt="Screenshot_20260210_185859" src="https://github.com/user-attachments/assets/898925b8-9f3f-46ff-9bd4-c326e5fa735e" />
+<img width="200" alt="Screenshot_20260210_185917" src="https://github.com/user-attachments/assets/dc885888-46b9-4ca1-b267-3841a89ac275" />
+<img width="200" alt="Screenshot_20260210_190002" src="https://github.com/user-attachments/assets/f85bc8d4-9ef2-47df-ada4-c6747de6b98a" />
+<img width="200" alt="Screenshot_20260210_190012" src="https://github.com/user-attachments/assets/74834f64-d104-4fa0-aaa5-fa9f50afeae8" />
 
 
 ## ✅ Key Concepts Implemented
