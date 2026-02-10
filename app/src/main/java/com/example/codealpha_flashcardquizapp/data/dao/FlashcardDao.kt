@@ -5,6 +5,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Update
 import com.example.codealpha_flashcardquizapp.data.entity.Flashcard
 import kotlinx.coroutines.flow.Flow
 
@@ -20,4 +21,7 @@ interface FlashcardDao {
 
     @Delete
     suspend fun deleteFlashcard(flashcard: Flashcard)
+
+    @Update
+    suspend fun updateFlashcard(flashcard: Flashcard)
 }

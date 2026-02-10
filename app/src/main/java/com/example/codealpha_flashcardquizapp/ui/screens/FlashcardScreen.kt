@@ -117,6 +117,20 @@ fun FlashcardScreen(
                     }
                 }
 
+
+                Spacer(modifier = Modifier.height(20.dp))
+
+                Button(
+                    colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary),
+                    onClick = {
+                        // Navigate to edit screen with the card ID as a parameter
+                        navController.navigate("edit/${card.id}")
+                    }
+                ) {
+                    Text("Edit")
+                }
+
+
                 Spacer(modifier = Modifier.height(20.dp))
 
                 Button(
@@ -130,6 +144,8 @@ fun FlashcardScreen(
                 ) {
                     Text("Delete")
                 }
+
+
 
             }
         }

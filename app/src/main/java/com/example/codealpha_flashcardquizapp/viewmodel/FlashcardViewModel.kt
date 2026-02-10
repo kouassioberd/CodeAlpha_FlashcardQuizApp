@@ -29,4 +29,10 @@ class FlashcardViewModel(application: Application) : AndroidViewModel(applicatio
             dao.deleteFlashcard(card)
         }
     }
+
+    fun updateFlashcard(card: Flashcard) {
+        viewModelScope.launch {
+            dao.updateFlashcard(card)
+        }
+    }
 }

@@ -7,6 +7,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.codealpha_flashcardquizapp.ui.screens.AddFlashcardScreen
+import com.example.codealpha_flashcardquizapp.ui.screens.EditFlashcardScreen
 import com.example.codealpha_flashcardquizapp.ui.screens.FlashcardScreen
 import com.example.codealpha_flashcardquizapp.viewmodel.FlashcardViewModel
 
@@ -26,6 +27,10 @@ fun NavGraph (modifier: Modifier = Modifier) {
         }
         composable("add") {
             AddFlashcardScreen(navController, viewModel)
+        }
+        composable("edit/{cardId}") { backStackEntry ->
+            val cardId = backStackEntry.arguments?.getString("cardId")
+            EditFlashcardScreen(navController = navController, cardId = cardId, viewModel = viewModel)
         }
     }
 }
