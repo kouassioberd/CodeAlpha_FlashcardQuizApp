@@ -1,10 +1,14 @@
 package com.example.codealpha_flashcardquizapp.ui.screens
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -15,6 +19,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -28,42 +33,55 @@ fun EditFlashcardScreen(
     viewModel: FlashcardViewModel
 ) {
     val cardIdInt = cardId?.toIntOrNull() ?: return
-    val card = viewModel.flashcards.collectAsState().value.find { it.id == cardIdInt} ?: return
+    val card = viewModel.flashcards.collectAsState().value
+        .find { it.id == cardIdInt} ?: return
 
     var question by rememberSaveable { mutableStateOf(card.question) }
     var answer by rememberSaveable { mutableStateOf(card.answer) }
 
 
-    Column(
+    Box(
         modifier = Modifier
-            .padding(16.dp)
+            .fillMaxSize(),
+        contentAlignment = Alignment.Center
     ) {
-        OutlinedTextField(
-            value = question,
-            onValueChange = { question = it},
-            label = { Text("Question") },
-            modifier = Modifier.fillMaxWidth()
-        )
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        OutlinedTextField(
-            value = answer,
-            onValueChange = { answer = it},
-            label = { Text("Answer") },
-            modifier = Modifier.fillMaxWidth()
-        )
-
-        Spacer(modifier = Modifier.height(24.dp))
-
-        Button(
-            onClick = {
-                viewModel.updateFlashcard(card.copy(question = question, answer = answer))
-                navController.popBackStack()
-            }
+        Column(
+            modifier = Modifier
+                .fillMaxWidth(0.85f)
+                .verticalScroll(rememberScrollState())
+                .padding(24.dp)
         ) {
-            Text("Save")
+            OutlinedTextField(
+                value = question,
+                onValueChange = { question = it },
+                label = { Text("Question") },
+                modifier = Modifier.fillMaxWidth()
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+
+            OutlinedTextField(
+                value = answer,
+                onValueChange = { answer = it },
+                label = { Text("Answer") },
+                modifier = Modifier.fillMaxWidth()
+            )
+            Spacer(modifier = Modifier.height(24.dp))
+
+            Button(
+                onClick = {
+                    viewModel.updateFlashcard(
+                        card.copy(
+                            question = question,
+                            answer = answer
+                        )
+                    )
+                    navController.popBackStack()
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+            ) {
+                Text("Save")
+            }
         }
     }
-
 }
