@@ -2,6 +2,8 @@ package com.example.codealpha_flashcardquizapp.ui.screens
 
 import android.content.res.Configuration
 import android.graphics.Color
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -33,6 +35,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ModifierLocalBeyondBoundsLayout
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.text.font.FontWeight
@@ -191,6 +194,13 @@ fun FlashcardContent(
     showAnswer: Boolean,
     modifier: Modifier = Modifier
 ) {
+
+    // Animate rotation from 0 to 180 degrees
+    val rotation by animateFloatAsState(
+        targetValue = if (showAnswer) 180f else 0f,
+        animationSpec = tween(durationMillis = 600)
+    )
+
     BoxWithConstraints(
         modifier = modifier
             .fillMaxWidth()
@@ -202,6 +212,10 @@ fun FlashcardContent(
                 .fillMaxWidth()
                 .height(dynamicHeigh)
                 .shadow(8.dp, RoundedCornerShape(16.dp))
+                .graphicsLayer {
+                    rotationY = rotation
+                    cameraDistance = 12 * density // improves 3D perspective
+                }
                 .background(
                     MaterialTheme.colorScheme.surface,
                     RoundedCornerShape(16.dp)
@@ -209,11 +223,44 @@ fun FlashcardContent(
                 .padding(24.dp),
             contentAlignment = Alignment.Center
         ) {
-            Text(
-                text = if (showAnswer) card.answer else card.question,
-                style = MaterialTheme.typography.headlineSmall,
-                fontWeight = FontWeight.Bold
-            )
+            // Front card (question)
+            val frontAlpha = if (rotation <= 90f) 1f else 0f
+            val backAlpha = if (rotation >= 90f) 1f else 0f
+
+
+            if (frontAlpha > 0f) {
+                Box(
+                    modifier = Modifier
+                        .graphicsLayer{
+                            alpha = frontAlpha
+                        },
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(
+                        text = card.question,
+                        style = MaterialTheme.typography.headlineSmall,
+                        fontWeight = FontWeight.Bold
+                    )
+                }
+            }
+
+            // Back card (answer)
+            if (backAlpha > 0f) {
+                Box(
+                    modifier = Modifier
+                        .graphicsLayer {
+                            rotationY = 180f // flip the back side so it reads correctly
+                            alpha = backAlpha
+                        },
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(
+                        text = card.answer,
+                        style = MaterialTheme.typography.headlineSmall,
+                        fontWeight = FontWeight.Bold
+                    )
+                }
+            }
         }
     }
 }
